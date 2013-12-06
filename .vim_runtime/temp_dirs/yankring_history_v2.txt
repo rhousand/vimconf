@@ -1,0 +1,100 @@
+git,v
+amix/vimrc.git,v
+#},V
+#,V
+#  },V
+#    nameservers => ['127.0.0.1', '10.24.1.50', '10.24.144.110'],,V
+#    searchpath  => ['redventures.net'],,V
+#    domainname  => "redventures.net",,V
+#  resolv_conf { "redventures.net":,V
+#  include bind,V
+#  include resolv,V
+#  include ntp,V
+#  include services_webserver_role,V
+#  include mailer_table,V
+#  include yum-packages,V
+#  include nrpe,V
+#  include monitoring,V
+#node 'rv-atl-web105.redventures.net' inherits 'common'{,V
+#,v
+node 'rv-atl-web405.redventures.net' inherits 'common'{  include monitoring  include nrpe  include yum-packages  include mailer_table  include services_webserver_role  include ntp  include resolv  include bind  resolv_conf { "redventures.net":    domainname  => "redventures.net",    searchpath  => ['redventures.net'],    nameservers => ['127.0.0.1', '10.24.1.50', '10.24.144.110'],  }},V
+x,v
+%- if $server_pool == "internet" -%>,V
+d,v
+<,v
+,V
+# web20x<% if hostname =~ /^rv-atl-web20*/ -%>check_access_log_d2tv sudo /usr/local/nagios/libexec/check_access_log.pl -l /var/log/apache/www.direct2tv.com.access_log -m 100 -c 10 -w 5check_access_log_dstartv sudo /usr/local/nagios/libexec/check_access_log.pl -l /var/log/apache/www.directstartv.com.access_log -m 100 -c 10 -w 5<% end -%>,V
+`,v
+  ,1
+$,v
+-,v
+=,v
+<%= hostname -%>,V
+*,v
+l,v
+o,v
+p,v
+_,v
+r,v
+e,v
+v,v
+s,v
+C,v
+<%-# if virtual == "physical" -%> ,V
+%,v
+nagios,v
+            ,2
+cw,v
+nagios-nrpe,v
+  file { "/etc/nagios/nrpe.cfg":    mode    => "644",            owner   => $nrpeuser,            group   => $nrpegroup,            content => template("monitoring/nrpe.cfg"),            require => Package['nagios-nrpe'],  },V
+ ,v
+`:x,v
+internet,v
+#<% if i%server_pool == "internet" -%> ,V
+cw550 -c 700 ,v
+check_usr /usr/local/nagios/libexec/check_disk -w 20% -c 10% -p /usr,V
+check_var /usr/local/nagios/libexec/check_disk -w 10% -c 5% -p /var,V
+rv-atl-web04.redventures.net ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAvVyLdRML4OquIKE9qIEzagF1p6WfsILz2GdvGIwc8z14/dcj14DMiQLocmjV6bY98f5r8tAvqAIMxIQI0fP3pPvGU5qGV57ot9lv27WVssbYViy04NO3omf9a9ZopbCA44WqTTSuenA+OjNzWMtJ/7ejpEBwsPmodmPSzOT/u47YgkaajibeZNnl8UsKI1iJbgQZ4FjHm1HbxQFwK6Ym70wcbzkL0kbZw2Yvh+0jEdwjgOxADL21YZx7xjCl6xRc1IbnLWVr++RanW0u7YVdzk7RtkjJpjbVXqEJ/nRdw4dI9wKuPI16aWxUHbgWTxew1tytP3ngpzwwkl4D3Uolzw==,V
+rv-atl-web04,10.24.240.24 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA1ehj88ilMaFHs164VF2pWPRkjbBEzd4ZVn5RQIy+LUQxg6fvSaOWyAzQWxpouYM7XfU+ut+sgi3LhEXcyxIRV3rhRhJHPFYIKag2D5jp4sCRrXgrb+LubvEMZeWU/rGnOjb+Ozq8Ww2Fd84HMnwjPS17fJgtOwPwbuiNqDKd4JaVCBd8sJPNzyJDbaxVc3eINGJ/CN3MUhuXn7ByhoNHNSsfEEUyYTuiiOHpaaE2jyBKnTWo7m04yMJeAqNLfhdgtb2dSiW/ZXJsyNCHn1/XKNeokHGOa7ZRRRCyQ9VVN5mZwcVut7t+cKDKla+tHk0fEo57UWw0UKW9utlSFtN7TQ==,V
+4,v
+64,v
+o%>,v
+c,v
+8,v
+.,v
+3,v
+i,v
+t,v
+",v
+n,v
+u,v
+0,v
+2,v
++,v
+5,v
+ocommand,v
+1,v
+9,v
+(,v
+),v
+   $proc_warn = "592",V
+proc_warn,v
+command[check_total_procs]=<%= pluginsdir %>/check_procs -w <%= proc_warn.to_i*2 %> -c <%= proc_crit %>,V
+#  $proc_warn = "$processorcount * 25 + 192",V
+example,v
+},V
+warm,v
+  },V
+  if $processorcount == 16 {,V
+    $proc_warm = 420,V
+    $proc_warm = 392,V
+  if $processorcount < 16 {,V
+  if $processorcount == 16 {    $proc_warm = 592    $proc_warm = 620  },V
+492,v
+    $proc_warm = 492,V
+  f $virtual == 'phyicdsal' {,V
+                          ,2
+    forwarders { 10.24.1.50;10.24,V
+    recursion yes;,V
+    allow-query { localhost; any; };,V
+    query-source-v6 port 53;,V
